@@ -5,11 +5,13 @@ public class MassLossingBody extends Body{
 
 	private double lossFactor;
 	private double lossFrequency;
+	private double c;
 	
 	MassLossingBody(String id, double m, Vector2D vel, Vector2D pos, Vector2D ace, double lFactor, double lFreq) {
 		super(id, m, vel, pos, ace);
 		this.lossFactor = lFactor;
 		this.lossFrequency = lFreq;
+		c=0.0;
 	}
 
 	public double getLossFactor() {
@@ -29,8 +31,7 @@ public class MassLossingBody extends Body{
 	}
 	
 	public void move(double t) {
-		super.move(t);
-		double c = 0.0;	
+		super.move(t);	
 		c += t;
 		if(c >= this.lossFrequency) {
 			this.m *= (1 - this.lossFactor);

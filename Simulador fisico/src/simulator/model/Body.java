@@ -47,22 +47,22 @@ public class Body {
 		force = new Vector2D();
 	}
 	
+	void resetVelocity() {
+		velocity = new Vector2D();
+	}
+	
 	void move(double t) {
 		Vector2D aceleration = new Vector2D();
-		double time = t;
-		
-		while(t > 0) {
-			if(m != 0){
-				aceleration = force.scale(1/m);
-			}
-			Vector2D new_a = aceleration.scale(0.5).scale(time*time);
-			Vector2D new_p = position.plus(velocity.scale(time));
-			
-			position = new_p.plus(new_a);
-			velocity = aceleration.scale(time).plus(velocity);
-			
-			t--;
+		if(m != 0){
+			aceleration = force.scale(1/m);
 		}
+		Vector2D new_a = aceleration.scale(0.5).scale(t*t);
+		Vector2D new_p = position.plus(velocity.scale(t));
+			
+		position = new_p.plus(new_a);
+		velocity = aceleration.scale(t).plus(velocity);
+			
+
 	}
 	
 	public JSONObject getState() {
