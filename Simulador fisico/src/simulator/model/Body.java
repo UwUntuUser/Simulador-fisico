@@ -11,7 +11,7 @@ public class Body {
 	protected Vector2D force;
 	protected Vector2D position;
 	
-	Body(String id, double masa, Vector2D v, Vector2D p, Vector2D f){
+	public Body(String id, double masa, Vector2D v, Vector2D p, Vector2D f){
 		this.id = id;
 		m = masa;
 		velocity = v;
@@ -60,7 +60,7 @@ public class Body {
 		Vector2D new_p = position.plus(velocity.scale(t));
 			
 		position = new_p.plus(new_a);
-		velocity = aceleration.scale(t).plus(velocity);
+		velocity = velocity.plus(aceleration.scale(t));
 			
 
 	}

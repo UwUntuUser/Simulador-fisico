@@ -8,8 +8,11 @@ import simulator.misc.Vector2D;
 public class NewtonUniversalGravitation implements ForceLaws{
 
 	
-	private final double G = 6.67E-11;
+	private double G = 6.67E-11;
 	
+	public NewtonUniversalGravitation(double g){
+		G = g;
+	}
 	@Override
 	public void apply(List<Body> bodies) {
 		
