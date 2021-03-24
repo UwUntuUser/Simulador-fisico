@@ -3,22 +3,25 @@ package simulator.factories;
 import org.json.JSONObject;
 
 import simulator.model.ForceLaws;
-import simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws> {
 
 	private final String type = "nlug";
-	private double g;
+	private Double g;
 	
-	
-
 	@Override
-	public ForceLaws createInstance(JSONObject info) {
+	public ForceLaws createInstance(JSONObject info) throws IllegalArgumentException{
+		
+		if(info == null)
+			throw new IllegalArgumentException();
 		
 		ForceLaws ley = null;
 		if(info.getString("type") == type) {
 			if(info.has("G")) {
 				g = info.getDouble("G");
+				
+				if(g == null)
+					throw new IllegalArgumentException();
 			}
 		}
 		return ley;

@@ -16,14 +16,14 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	@Override
 	public T createInstance(JSONObject info) throws IllegalArgumentException{
 		
-		if(info == null) {
+		if(info == null) {												// necesario?
 			throw new IllegalArgumentException();
 		} else {
 			
 			T obj = null;
 			int pivote = 0;
 			while(pivote < listaBuilders.size() && obj != null) {
-				obj = listaBuilders.get(pivote).createInstance(info);
+				obj = listaBuilders.get(pivote).createInstance(info);	// las excepciones saldrian de aqui
 				pivote++;
 			}
 			return obj;

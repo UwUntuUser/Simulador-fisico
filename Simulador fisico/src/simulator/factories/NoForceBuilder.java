@@ -10,7 +10,11 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 	private final String type = "ng";
 	
 	@Override
-	public ForceLaws createInstance(JSONObject info) {
+	public ForceLaws createInstance(JSONObject info) throws IllegalArgumentException{
+		
+		if(info == null)
+			throw new IllegalArgumentException();
+		
 		ForceLaws ley = null;
 		if(info.getString("type") == type) {
 			ley = new NoForce();

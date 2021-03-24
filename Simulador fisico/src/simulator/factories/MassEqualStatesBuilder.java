@@ -9,7 +9,10 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 
 	private final String type = "masseq";
 	@Override
-	public StateComparator createInstance(JSONObject info) {
+	public StateComparator createInstance(JSONObject info) throws IllegalArgumentException{
+		
+		if(info == null)
+			throw new IllegalArgumentException();
 		
 		MassEqualStates comp = null;
 		

@@ -29,18 +29,23 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 	}
 
 	@Override
-	public Body createInstance(JSONObject info) {
+	public Body createInstance(JSONObject info) throws IllegalArgumentException{
+		
+		if(info == null)
+			throw new IllegalArgumentException();
 		
 		Body body = null;
 		
 		if(info.getString("type") == type) {
 			String id = info.getString("id");
-			double masa = info.getDouble("m");
+			Double masa = info.getDouble("m");
 			Vector2D vel = jsonToArray(info.getJSONArray("v"));
 			Vector2D pos = jsonToArray(info.getJSONArray("p"));
-			double lfactor = info.getDouble("factor");
-			double lfreq = info.getDouble("freq");
-		
+			Double lfactor = info.getDouble("factor");
+			Double lfreq = info.getDouble("freq");
+			
+			if(id == null || masa == null || vel == null || pos == null || lfactor == null || lfreq == null)
+				throw new IllegalArgumentException();
 			body = new MassLossingBody(id, masa, vel, pos, new Vector2D(), lfactor, lfreq);
 		}
 		return body;

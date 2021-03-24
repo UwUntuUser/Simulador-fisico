@@ -11,13 +11,13 @@ public class EpsilonEqualStatesBuilder extends Builder<StateComparator>{
 	
 	@Override
 	public StateComparator createInstance(JSONObject info) throws IllegalArgumentException{
-
-		if(info == null)
-			throw new IllegalArgumentException();
+		
 		EpsilonEqualStates comp = null;
 		
 		if(info.getString("type") == type) {
-			double eps = info.getDouble("eps");
+			Double eps = info.getDouble("eps");
+			if(eps == null)
+				throw new IllegalArgumentException();
 			comp = new EpsilonEqualStates(eps);
 		}
 		return comp;

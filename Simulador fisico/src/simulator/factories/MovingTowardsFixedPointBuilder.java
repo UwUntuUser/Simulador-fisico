@@ -25,7 +25,10 @@ public class MovingTowardsFixedPointBuilder extends Builder<ForceLaws>{
 	}
 
 	@Override
-	public ForceLaws createInstance(JSONObject info) {
+	public ForceLaws createInstance(JSONObject info) throws IllegalArgumentException{
+		
+		if(info == null)
+			throw new IllegalArgumentException();
 		
 		ForceLaws ley = null;
 		
