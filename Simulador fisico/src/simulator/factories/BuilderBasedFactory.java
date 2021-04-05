@@ -17,12 +17,12 @@ public class BuilderBasedFactory<T> implements Factory<T> {
 	public T createInstance(JSONObject info) throws IllegalArgumentException{
 		
 		if(info == null) {												// necesario?
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("No existe el objeto JSON");
 		} else {
 			
 			T obj = null;
 			int pivote = 0;
-			while(pivote < listaBuilders.size() && obj != null) {
+			while(obj == null && pivote < listaBuilders.size()) {
 				obj = listaBuilders.get(pivote).createInstance(info);	// las excepciones saldrian de aqui
 				pivote++;
 			}

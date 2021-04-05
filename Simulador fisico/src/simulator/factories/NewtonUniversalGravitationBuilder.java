@@ -3,11 +3,16 @@ package simulator.factories;
 import org.json.JSONObject;
 
 import simulator.model.ForceLaws;
+import simulator.model.NewtonUniversalGravitation;
 
 public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws> {
 
-	private final String type = "nlug";
 	private Double g;
+
+	public NewtonUniversalGravitationBuilder() {
+		super("nlug", "newton universal law");
+		g = 6.67E-11;
+	}
 	
 	@Override
 	public ForceLaws createInstance(JSONObject info) throws IllegalArgumentException{
@@ -16,13 +21,14 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws> {
 			throw new IllegalArgumentException();
 		
 		ForceLaws ley = null;
-		if(info.getString("type") == type) {
-			if(info.has("G")) {
-				g = info.getDouble("G");
-				
+		if(info.getString("type").equals(type)) {
+			JSONObject data = info.getJSONObject("data");
+			if(data.has("G")) {
+				g = data.getDouble("G");
 				if(g == null)
 					throw new IllegalArgumentException();
 			}
+			ley = new NewtonUniversalGravitation(g);
 		}
 		return ley;
 	}
@@ -36,7 +42,8 @@ public class NewtonUniversalGravitationBuilder extends Builder<ForceLaws> {
 		
 		obj.put("type", "nlug");
 		obj.put("data", data);
-		
+		obj.put("desc", desc);
+
 		return obj;
 	}
 	

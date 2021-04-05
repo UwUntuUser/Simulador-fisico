@@ -7,6 +7,13 @@ import simulator.misc.Vector2D;
 
 public abstract class Builder<T> {
 
+	protected String type;
+	protected String desc;
+	
+	public Builder(String type, String desc) {
+		this.type = type;
+		this.desc = desc;
+	}
 	public abstract T createInstance(JSONObject info);
 	public abstract JSONObject getBuilderInfo();
 	

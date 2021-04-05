@@ -28,20 +28,20 @@ public class NewtonUniversalGravitation implements ForceLaws{
 						
 						double distancia = planetaJ.getPosition().distanceTo(planetaI.getPosition());
 						double Masas = planetaJ.getMass() * planetaI.getMass();
-						double fuerza = G * Masas/(distancia*distancia);
+						double fuerza = (G * Masas)/(distancia*distancia);
 						
-						Vector2D direccion = planetaJ.getPosition().minus(planetaI.getPosition()).direction();
+						Vector2D direccion = (planetaJ.getPosition().minus(planetaI.getPosition())).direction();
 						Vector2D vectorFuerza = direccion.scale(fuerza);		//vector fuerza del cuerpo j sobre el cuerpo i
-						
-						fuerzaTotal.plus(vectorFuerza);
+						//System.out.println(fuerza);
+						fuerzaTotal = fuerzaTotal.plus(vectorFuerza);
 					}
 				}
-				planetaI.resetForce();
-				planetaI.addForce(fuerzaTotal.scale(1/planetaI.getMass()));		// actualiza la aceleracion
+				//System.out.println(fuerzaTotal.scale(1/planetaI.getMass()));
+				planetaI.setForce(fuerzaTotal.scale(1/planetaI.getMass()));		// actualiza la aceleracion
 			}
 			else {
-				planetaI.resetForce();		//	pone a 0 la aceleracion
-				planetaI.resetVelocity();   //	pone a 0 la velocidad
+				planetaI.setForce(new Vector2D());		//	pone a 0 la aceleracion
+				planetaI.setVelocity(new Vector2D());   //	pone a 0 la velocidad
 			}
 			
 		}

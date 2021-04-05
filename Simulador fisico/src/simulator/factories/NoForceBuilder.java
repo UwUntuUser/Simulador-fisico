@@ -7,7 +7,10 @@ import simulator.model.NoForce;
 
 public class NoForceBuilder extends Builder<ForceLaws>{
 
-	private final String type = "ng";
+	public NoForceBuilder() {
+		super("ng", "no force");
+		// TODO Auto-generated constructor stub
+	}
 	
 	@Override
 	public ForceLaws createInstance(JSONObject info) throws IllegalArgumentException{
@@ -16,7 +19,7 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 			throw new IllegalArgumentException();
 		
 		ForceLaws ley = null;
-		if(info.getString("type") == type) {
+		if(info.getString("type").equals(type)) {
 			ley = new NoForce();
 		}
 			
@@ -30,7 +33,8 @@ public class NoForceBuilder extends Builder<ForceLaws>{
 		
 		obj.put("type", "nf");
 		obj.put("data", data);
-		
+		obj.put("desc", desc);
+
 		return obj;
 	}
 

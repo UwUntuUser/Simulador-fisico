@@ -8,6 +8,11 @@ import simulator.model.MassLossingBody;
 
 public class MassLosingBodyBuilder extends Builder<Body>{
 
+	public MassLosingBodyBuilder() {
+		super("mlb", "mass lossing body");
+		// TODO Auto-generated constructor stub
+	}
+
 	private final String type = "mlb";
 
 	@Override
@@ -24,6 +29,8 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		
 		obj.put("type", "mlb");
 		obj.put("data", data);
+		obj.put("desc", desc);
+
 		
 		return obj;
 	}
@@ -36,13 +43,14 @@ public class MassLosingBodyBuilder extends Builder<Body>{
 		
 		Body body = null;
 		
-		if(info.getString("type") == type) {
-			String id = info.getString("id");
-			Double masa = info.getDouble("m");
-			Vector2D vel = jsonToArray(info.getJSONArray("v"));
-			Vector2D pos = jsonToArray(info.getJSONArray("p"));
-			Double lfactor = info.getDouble("factor");
-			Double lfreq = info.getDouble("freq");
+		if(info.getString("type").equals(type)) {
+			JSONObject data = info.getJSONObject("data");
+			String id = data.getString("id");
+			Double masa = data.getDouble("m");
+			Vector2D vel = jsonToArray(data.getJSONArray("v"));
+			Vector2D pos = jsonToArray(data.getJSONArray("p"));
+			Double lfactor = data.getDouble("factor");
+			Double lfreq = data.getDouble("freq");
 			
 			if(id == null || masa == null || vel == null || pos == null || lfactor == null || lfreq == null)
 				throw new IllegalArgumentException();

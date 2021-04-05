@@ -7,18 +7,25 @@ import simulator.control.StateComparator;
 
 public class EpsilonEqualStatesBuilder extends Builder<StateComparator>{
 
-	private final String type = "epseq";
-	
+	public EpsilonEqualStatesBuilder() {
+		super("epseq", "epsilon equal comparator");
+		// TODO Auto-generated constructor stub
+	}	
 	@Override
 	public StateComparator createInstance(JSONObject info) throws IllegalArgumentException{
 		
 		EpsilonEqualStates comp = null;
 		
-		if(info.getString("type") == type) {
-			Double eps = info.getDouble("eps");
-			if(eps == null)
-				throw new IllegalArgumentException();
-			comp = new EpsilonEqualStates(eps);
+		if(info.getString("type").equals(type)) {
+			JSONObject data = info.getJSONObject("data");
+			if(!data.has("eps"))
+				comp = new EpsilonEqualStates(0.0);
+			else {
+				Double eps = data.getDouble("eps");
+				if(eps == null)
+					throw new IllegalArgumentException();
+				comp = new EpsilonEqualStates(eps);
+			}
 		}
 		return comp;
 	}
@@ -32,6 +39,8 @@ public class EpsilonEqualStatesBuilder extends Builder<StateComparator>{
 		data.put("eps", 0.1);
 		obj.put("type", "epseq");
 		obj.put("data", data);
+		obj.put("desc", desc);
+
 		
 		return obj;
 	}

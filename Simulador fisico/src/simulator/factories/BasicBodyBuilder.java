@@ -7,19 +7,20 @@ import simulator.model.Body;
 
 public class BasicBodyBuilder extends Builder<Body>{
 
-	private final String type = "basic";
-
+	public BasicBodyBuilder() {
+		super("basic", "basic body");
+	}
 	@Override
 	public Body createInstance(JSONObject info) throws IllegalArgumentException{
-					
-
+				
 		Body body = null;
 		
-		if(info.getString("type") == type) {
-			String id = info.getString("id");
-			Double masa = info.getDouble("m");
-			Vector2D vel = jsonToArray(info.getJSONArray("v"));
-			Vector2D pos = jsonToArray(info.getJSONArray("p"));
+		if(info.getString("type").equals(type)) {
+			JSONObject data = info.getJSONObject("data");
+			String id = data.getString("id");
+			Double masa = data.getDouble("m");
+			Vector2D vel = jsonToArray(data.getJSONArray("v"));
+			Vector2D pos = jsonToArray(data.getJSONArray("p"));
 			
 			if(id == null || masa == null || vel == null || pos == null)
 				throw new IllegalArgumentException();
@@ -39,8 +40,9 @@ public class BasicBodyBuilder extends Builder<Body>{
 		data.put("v", "velocidad");
 		data.put("m", 0.0);
 		
-		obj.put("type", "basic");
+		obj.put("type", type);
 		obj.put("data", data);
+		obj.put("desc", desc);
 		
 		return obj;
 	}

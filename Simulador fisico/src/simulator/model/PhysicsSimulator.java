@@ -2,9 +2,12 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import simulator.misc.Vector2D;
 
 public class PhysicsSimulator {
 
@@ -26,7 +29,7 @@ public class PhysicsSimulator {
 	
 	public void advance() {
 		for(Body b: this.bodies) {
-			b.resetForce();
+			b.setForce(new Vector2D());
 		}
 		this.laws.apply(this.bodies);
 		for(Body b: this.bodies) {
@@ -54,10 +57,13 @@ public class PhysicsSimulator {
 	}
 	
 	public String toString() {
-		String cad = "";
+		String cad = "{\"bodies\":[";
 		for(Body b: this.bodies) {
-			cad += b.toString();
+			cad += b.toString() + ",";
 		}
+		cad = cad.substring(0, cad.length() - 1);
+		cad += "],";
+		cad += "\"time\": " + this.currentTime + "}"; 
 		return cad;
 	}
 }

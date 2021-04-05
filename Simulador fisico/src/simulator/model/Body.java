@@ -39,27 +39,23 @@ public class Body {
 		return position;
 	}
 	
-	void addForce(Vector2D f) {
-		force.plus(f);
-	}
-
-	void resetForce() {
-		force = new Vector2D();
+	void setForce(Vector2D v) {
+		force = new Vector2D(v);
 	}
 	
-	void resetVelocity() {
-		velocity = new Vector2D();
+	void setVelocity(Vector2D v) {
+		velocity = new Vector2D(v);
 	}
 	
 	void move(double t) {
 		Vector2D aceleration = new Vector2D();
+		//System.out.println(force);
 		if(m != 0){
 			aceleration = force.scale(1/m);
 		}
-		Vector2D new_a = aceleration.scale(0.5).scale(t*t);
-		Vector2D new_p = position.plus(velocity.scale(t));
-			
-		position = new_p.plus(new_a);
+		Vector2D new_a = aceleration.scale((t*t)/2);
+		System.out.println(new_a);
+		position = position.plus(velocity.scale(t).plus(new_a));
 		velocity = velocity.plus(aceleration.scale(t));
 			
 

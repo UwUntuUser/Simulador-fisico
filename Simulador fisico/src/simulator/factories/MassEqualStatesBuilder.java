@@ -7,7 +7,11 @@ import simulator.control.StateComparator;
 
 public class MassEqualStatesBuilder extends Builder<StateComparator>{
 
-	private final String type = "masseq";
+	public MassEqualStatesBuilder() {
+		super("masseq", "mass equal comparator");
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public StateComparator createInstance(JSONObject info) throws IllegalArgumentException{
 		
@@ -16,7 +20,7 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 		
 		MassEqualStates comp = null;
 		
-		if(info.getString("type") == type) {
+		if(info.getString("type").equals(type)) {
 			comp = new MassEqualStates();
 		}
 		return comp;
@@ -29,7 +33,8 @@ public class MassEqualStatesBuilder extends Builder<StateComparator>{
 		
 		obj.put("type", "masseq");
 		obj.put("data", data);
-		
+		obj.put("desc", desc);
+
 		return obj;
 	}
 
