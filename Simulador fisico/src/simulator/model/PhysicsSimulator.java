@@ -27,11 +27,11 @@ public class PhysicsSimulator {
 		this.bodies = new ArrayList<Body>();
 	}
 	
-	public void advance() {
+	public void advance(int i) {
 		for(Body b: this.bodies) {
 			b.setForce(new Vector2D());
 		}
-		this.laws.apply(this.bodies);
+		this.laws.apply(this.bodies, i);
 		for(Body b: this.bodies) {
 			b.move(this.realTime);
 		}

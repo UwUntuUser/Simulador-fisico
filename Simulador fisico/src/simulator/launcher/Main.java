@@ -287,7 +287,7 @@ public class Main {
 		}
 		Controller c = new Controller(sim, _bodyFactory);
 		c.loadBodies(is);
-		c.run(_simSteps, os, is, cmp);
+		c.run(_simSteps, os, expOut, cmp);
 	}
 
 	private static void start(String[] args) throws Exception {

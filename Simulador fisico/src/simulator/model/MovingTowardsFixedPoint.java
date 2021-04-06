@@ -11,14 +11,15 @@ public class MovingTowardsFixedPoint implements ForceLaws{
 	public MovingTowardsFixedPoint(double g, Vector2D c) {
 		G = g;
 		C = c;
+
 	}
 	
 	@Override
-	public void apply(List<Body> bodies) {
+	public void apply(List<Body> bodies, int ia) {
 		for(int i = 0; i<bodies.size(); i++) {
 			Body planeta = bodies.get(i);
 			Vector2D d = C.minus(planeta.getPosition()).direction();
-			
+
 			planeta.setForce(d.scale(planeta.getMass() / G));
 		}
 		

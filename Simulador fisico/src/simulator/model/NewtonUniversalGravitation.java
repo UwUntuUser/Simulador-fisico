@@ -13,12 +13,12 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		G = g;
 	}
 	@Override
-	public void apply(List<Body> bodies) {
+	public void apply(List<Body> bodies, int ia) {
 		
-		Vector2D fuerzaTotal = new Vector2D(); // fuerza total que aplican el resto de planetas j sobre un unico planeta i
-
+		
 		for(int i = 0; i < bodies.size(); i++) {
 			Body planetaI = bodies.get(i);
+			Vector2D fuerzaTotal = new Vector2D(); // este new tiene que ir aqui!!
 			
 			if(planetaI.getMass() != 0) {
 				for(int j = 0; j < bodies.size(); j++) {
@@ -26,18 +26,24 @@ public class NewtonUniversalGravitation implements ForceLaws{
 					
 					if(i != j) {		// los cuerpos son distintos
 						
-						double distancia = planetaJ.getPosition().distanceTo(planetaI.getPosition());
-						double Masas = planetaJ.getMass() * planetaI.getMass();
-						double fuerza = (G * Masas)/(distancia*distancia);
+						Vector2D direccion = new Vector2D();
+						Vector2D vectorFuerza = new Vector2D();
+						double fuerza = 0.0;
+						double distancia = 0.0;
+						double masas = 0.0;
 						
-						Vector2D direccion = (planetaJ.getPosition().minus(planetaI.getPosition())).direction();
-						Vector2D vectorFuerza = direccion.scale(fuerza);		//vector fuerza del cuerpo j sobre el cuerpo i
-						//System.out.println(fuerza);
+						distancia = planetaJ.getPosition().distanceTo(planetaI.getPosition());
+						masas = planetaJ.getMass() * planetaI.getMass();
+						if(distancia != 0)
+							fuerza = G * (masas/(distancia*distancia));
+						
+						direccion = planetaJ.getPosition().minus(planetaI.getPosition()).direction();
+						vectorFuerza = direccion.scale(fuerza);		//vector fuerza del cuerpo j sobre el cuerpo i
 						fuerzaTotal = fuerzaTotal.plus(vectorFuerza);
 					}
 				}
 				//System.out.println(fuerzaTotal.scale(1/planetaI.getMass()));
-				planetaI.setForce(fuerzaTotal.scale(1/planetaI.getMass()));		// actualiza la aceleracion
+				planetaI.setForce(fuerzaTotal);		// actualiza la aceleracion
 			}
 			else {
 				planetaI.setForce(new Vector2D());		//	pone a 0 la aceleracion
