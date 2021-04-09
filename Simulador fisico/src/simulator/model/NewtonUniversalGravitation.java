@@ -18,7 +18,7 @@ public class NewtonUniversalGravitation implements ForceLaws{
 		
 		for(int i = 0; i < bodies.size(); i++) {
 			Body planetaI = bodies.get(i);
-			Vector2D fuerzaTotal = new Vector2D(); // este new tiene que ir aqui!!
+			Vector2D fuerzaTotal = new Vector2D(); // este new tiene que ir aqui
 			
 			if(planetaI.getMass() != 0) {
 				for(int j = 0; j < bodies.size(); j++) {
@@ -33,10 +33,9 @@ public class NewtonUniversalGravitation implements ForceLaws{
 						double masas = 0.0;
 						
 						distancia = planetaJ.getPosition().distanceTo(planetaI.getPosition());
-						masas = planetaJ.getMass() * planetaI.getMass();
+						masas = G * (planetaJ.getMass() * planetaI.getMass());
 						if(distancia != 0)
-							fuerza = G * (masas/(distancia*distancia));
-						
+							fuerza = masas / (distancia*distancia);
 						direccion = planetaJ.getPosition().minus(planetaI.getPosition()).direction();
 						vectorFuerza = direccion.scale(fuerza);		//vector fuerza del cuerpo j sobre el cuerpo i
 						fuerzaTotal = fuerzaTotal.plus(vectorFuerza);

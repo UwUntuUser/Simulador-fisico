@@ -42,6 +42,9 @@ public class EpsilonEqualStates implements StateComparator{
 				|| pos1.distanceTo(pos2) > this.epsilon
 				|| vel1.distanceTo(vel2) > this.epsilon
 				|| for1.distanceTo(for2) > this.epsilon) {
+				System.out.println(Math.abs(b1.getDouble("m") - b2.getDouble("m")) > this.epsilon);
+				System.out.println(pos1.distanceTo(pos2) > this.epsilon);
+				System.out.println(vel1.distanceTo(vel2) > this.epsilon);
 				return false;
 				}
 			}

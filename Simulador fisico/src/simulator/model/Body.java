@@ -39,11 +39,14 @@ public class Body {
 		return position;
 	}
 	
-	void setForce(Vector2D v) {
+	public void setForce(Vector2D v) {
 		force = force.plus(v);
 	}
 	
-	void setVelocity(Vector2D v) {
+	public void resetForce() {
+		force = new Vector2D();
+	}
+	public void setVelocity(Vector2D v) {
 		velocity = new Vector2D(v);
 	}
 	
@@ -53,10 +56,8 @@ public class Body {
 			aceleration = force.scale(1/m);
 		}
 		Vector2D new_a = aceleration.scale((t*t)/2);
-		position = position.plus(velocity.scale(t).plus(new_a));
+		position = position.plus(velocity.scale(t).plus(aceleration.scale((t*t)/2)));
 		velocity = velocity.plus(aceleration.scale(t));
-		
-		// por alguna razon el unico parametro que no sale "bien" es la velocidad, el resto se ajustan a los comparadores
 	}
 	
 	public JSONObject getState() {

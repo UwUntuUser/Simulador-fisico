@@ -29,7 +29,7 @@ public class PhysicsSimulator {
 	
 	public void advance(int i) {
 		for(Body b: this.bodies) {
-			b.setForce(new Vector2D());
+			b.resetForce();
 		}
 		this.laws.apply(this.bodies, i);
 		for(Body b: this.bodies) {

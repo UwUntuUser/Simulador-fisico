@@ -46,14 +46,16 @@ public class Controller {
 		
 		for(int i = 0; i < n; i++) {
 			if(jsonInput!= null && !cmp.equal(sim.getState(), (JSONObject) jsonInput.getJSONArray("states").get(i))) {
-				throw new BodiesNotEqualException(i - 1, sim.getState(), (JSONObject) jsonInput.getJSONArray("states").get(i));
+				throw new BodiesNotEqualException(i, sim.getState(), (JSONObject) jsonInput.getJSONArray("states").get(i));
 
 			} else {
 				sim.advance(i);
 				p.print(sim);
-				p.println(",");
+				if(i < n - 1)
+					p.println(",");
 			}
 		}
+		
 		p.println("]");
 		p.println("}");
 		p.close();
